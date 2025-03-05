@@ -26,7 +26,9 @@ def make_app():
 
     return app
 
-
+def getdb():
+    db = SQLAlchemy(make_app)
+    return db
 
 
 
