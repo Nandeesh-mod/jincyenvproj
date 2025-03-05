@@ -49,6 +49,24 @@
                     <h1>Hello, Buddy! Go Green</h1>
                     <p>Join Us on a new adventure</p>
                     <div class="btn-grad" id="signUp">Sign Up</div>
+
+                    <!-- check for empty field -->
+                    {% if session["data_enterd"] == True %}
+                    <p style="color: red;">enter all fields</p>
+                    <p style="visibility: hidden;" >{{ session.pop("data_enterd",None) }} </p>
+                    {% endif %}
+
+                    <!-- check for the existing email -->
+                    {% if session["email_exist"] == True %}
+                    <p style="color: red;">email already registerd</p>
+                    <p style="visibility: hidden;" >{{ session.pop("email_exist",None) }} </p>
+                    {% endif %}
+
+                    {% if session["success"] == True %}
+                    <p style="color: red;">Registerd Successfully</p>
+                    <p style="visibility: hidden;" >{{ session.pop("success",None) }} </p>
+                    {% endif %}
+
                 </div>
             </div>
         </div>

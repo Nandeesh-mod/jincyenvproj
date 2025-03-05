@@ -12,5 +12,6 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False, index=True)
     password_hash = db.Column(db.String(255), nullable=False)
     profile_image = db.Column(db.String(255), nullable=True)
+    address = db.Column(db.String(255), nullable=True)
     created_at = db.Column(db.DateTime, default=datetime)
     points = db.Column(db.Integer)
