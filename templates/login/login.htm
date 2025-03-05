@@ -15,13 +15,14 @@
     <div class="container" id="container">
         <div>
         <div class="form-container sign-up-container">
-            <form action="#signup">
+            <form action="{{ url_for('signup') }}" method="post">
                 <h1>Create Account</h1>
-                <input type="text" placeholder="Name" />
-                <input type="email" placeholder="Email" />
-                <input type="password" placeholder="Password" />
-                <input type="text" placeholder="Address"> 
-                <div class="btn-grad" >Sign Up</div>
+                <input type="text" placeholder="First Name"  name="fname"/>
+                <input type="text" placeholder="username"  name="username"/>
+                <input type="email" placeholder="Email" name="email"/>
+                <input type="password" placeholder="Password"  name="password"/>
+                <input type="text" placeholder="Address" name="address"> 
+                <input type="submit" class="btn-grad" value="Sign up"></input>
             </form>
         </div>
         <div class="form-container sign-in-container">
@@ -29,7 +30,7 @@
                 <h1>Sign In</h1>
                 <input type="email" placeholder="Email" />
                 <input type="password" placeholder="Password" />
-                <div class="btn-grad" >Sign In</div>
+                <input type="submit" class="btn-grad" value="Sign In"></input>
             </form>
         </div>
         </div>
