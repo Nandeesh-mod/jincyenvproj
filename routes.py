@@ -52,7 +52,7 @@ def add_routes(app, db):
                     return redirect(url_for('home'))
                 else:
                     session['password_incc'] = True
-                    return render_template('login/login.htm')
+                    return redirect(url_for('entry'))
             
         except SQLAlchemyError as e:
             db.session.rollback()

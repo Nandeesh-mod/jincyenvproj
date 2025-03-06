@@ -3,9 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Complaint Management System</title>
+    <link rel="stylesheet" href="/css/home.css">
 </head>
 <body>
-    <h1>Hello world !!!</h1>
+    <nav class="navbar">
+        <div class="logo">Complaint Hub</div>
+        <div class="nav-links">
+            <a href="{{url_for('home')}}">Register Complaint</a>
+            <a href="/view-complaints">View Complaints</a>
+            <a href="/complaint-status">Complaint Status</a>
+        </div>
+    </nav>
+
+    <div class="content">
+        <div class="home-container">
+            <h1 class="home-title">Welcome to Complaint Management System</h1>
+            <p>Efficiently manage and track your complaints with our streamlined system.</p>
+            <button class="cta-button" onclick="window.location.href='/register-complaint'">
+                File a New Complaint
+            </button>
+        </div>
+    </div>
+    <script type="text/javascript" src="/js/home.js"></script>
 </body>
 </html>
