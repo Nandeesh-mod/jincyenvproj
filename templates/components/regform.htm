@@ -1,0 +1,46 @@
+<div class="content form-container sign-up-container">
+    <form action="{{ url_for('register_complaint') }}" method="POST" enctype="multipart/form-data">
+      <input type="text" name="title" placeholder="Complaint Title" required class="form-input">
+      <textarea name="description" placeholder="Describe your complaint" required class="form-textarea"></textarea>
+
+      <div class="location-container form-group">
+        <button type="button" id="getLocationBtn" class="location-btn">Get Current Location</button>
+        <div class="location-status" id="locationStatus"></div>
+        <input type="hidden" name="lat" id="latInput">
+        <input type="hidden" name="long" id="longInput">
+      </div>
+
+      <select name="severity" required class="form-select">
+        <option value="">Select Severity</option>
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+        <option value="critical">Critical</option>
+      </select>
+      <div class="form-group">
+        <label class="form-label">Problem Types:</label>
+        <div class="checkbox-group">
+          <label class="checkbox-label">
+            <input type="checkbox" name="problem_types" value="Sewage" class="form-checkbox"> Sewage
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" name="problem_types" value="Garbage" class="form-checkbox"> Garbage
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" name="problem_types" value="Road potholes" class="form-checkbox"> Road potholes
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" name="problem_types" value="Drainage" class="form-checkbox"> Drainage
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" name="problem_types" value="Other" class="form-checkbox"> Other
+          </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Upload Images (optional):</label>
+        <input type="file" name="images" multiple accept="image/*" class="form-file">
+      </div>
+      <button class="btn-grad form-button" type="submit">Submit Complaint</button>
+    </form>
+  </div>

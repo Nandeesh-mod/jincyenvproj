@@ -1,0 +1,146 @@
+/* Container Styles */
+.content {
+  width: 100%;
+  max-width: 500px;
+  margin: 60px auto;
+  
+}
+
+.form-container {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  padding: 30px;
+}
+
+.sign-up-container form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Input Styles */
+.form-input,
+.form-textarea,
+.form-select {
+  background-color: #f2f2f2;
+  border: none;
+  border-radius: 5px;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  width: 100%;
+  font-size: 14px;
+}
+
+.form-textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.form-select {
+  cursor: pointer;
+}
+
+/* Label Styles */
+.form-label {
+  font-weight: bold;
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* Checkbox Styles */
+.checkbox-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.form-checkbox {
+  margin-right: 5px;
+}
+
+/* File Upload Styles */
+.form-file {
+  margin: 10px 0 15px 0;
+  padding: 8px 0;
+}
+
+/* Form Group Styles */
+.form-group {
+  margin-bottom: 15px;
+}
+
+/* Button Styles */
+.form-button {
+  border-radius: 5px;
+  border: none;
+  padding: 12px 15px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 80ms ease-in;
+}
+
+.btn-grad {
+  background-image: linear-gradient(to right, #2b7a3d 0%, #1a484c 100%);
+  color: white;
+  transition: 0.5s;
+  background-size: 200% auto;
+}
+
+.btn-grad:hover {
+  background-position: right center;
+  transform: scale(1.02);
+}
+
+/* Location Button Styles */
+.location-container {
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.location-btn {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  transition: background-color 0.3s;
+}
+
+.location-btn:hover {
+  background-color: #3e8e41;
+}
+
+.location-btn:before {
+  content: "📍";
+  margin-right: 8px;
+}
+
+.location-status {
+  margin-top: 8px;
+  font-size: 12px;
+  min-height: 16px;
+}
+
+.location-success {
+  color: #4CAF50;
+}
+
+.location-error {
+  color: #f44336;
+}

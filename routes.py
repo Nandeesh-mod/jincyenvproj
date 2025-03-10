@@ -8,6 +8,15 @@ from sqlalchemy import text
 def add_routes(app, db):
 
 
+    @app.route('/register-complaint')
+    def register_complaint():
+        if session.get("email"):
+            return render_template('/home/registercomp.htm')
+        else:
+            return redirect(url_for('entry'))
+    
+
+
 
     @app.route('/error')
     def error_page():
@@ -27,6 +36,13 @@ def add_routes(app, db):
     @app.route('/')
     def entry():
         return render_template('login/login.htm')
+    
+
+
+
+    @app.route('/regcomp', methods=['POST'])
+    def regcomp():
+        return "hello"
 
     @app.route('/login',methods=['POST'])
     def login():
