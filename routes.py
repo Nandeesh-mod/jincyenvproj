@@ -1,11 +1,21 @@
-from models import User
+from models import User, Complaints, Images
 from flask import render_template, request, redirect, url_for, jsonify, session
 from app import bcrypt
 from datetime import datetime
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy import text
+from werkzeug.utils import secure_filename
+import uuid
+import os
+from utils import allowed_file
+
 
 def add_routes(app, db):
+
+
+    @app.route('/test')
+    def test():
+        return render_template('/test.htm')
 
 
     @app.route('/register-complaint')
@@ -42,7 +52,59 @@ def add_routes(app, db):
 
     @app.route('/regcomp', methods=['POST'])
     def regcomp():
-        return "hello"
+        try: 
+            data = request.form
+            files = request.files.getlist('images')
+            print(files)
+
+            if not files or files[0].filename == '':
+                redirect(url_for('register_complaint'))
+            
+            upload_count = 0
+            file_paths = []
+            for file in files:
+                print(file.filename)
+                if file:
+                    original_filename = secure_filename(file.filename)
+
+                    extension = original_filename.rsplit('.', 1)[1].lower()
+                    unique_filename = f"{str(uuid.uuid4())}.{extension}"
+
+
+                    # creating a final path
+                    final_path = os.path.join(app.config['UPLOAD_FOLDER'], unique_filename)
+                    absolute_path = os.path.abspath(final_path)
+                    file_paths.append(final_path)
+
+
+                    file.save(absolute_path)
+            
+            url = f"https://maps.google.com/maps?q={data['lat']},{data['long']}&z=15&output=embed"
+            complaint = Complaints(
+                user_id = session['user_id'],
+                title = data['title'],
+                description = data['description'],
+                location_url = url,
+                severity = data['severity'],
+                created_at = datetime.now(),
+                updated_at =  datetime.now()
+            )
+            db.session.add(complaint)
+            db.session.commit()
+            comp_id = complaint.id
+            print(file_paths)
+
+            for image_path in file_paths:
+                image = Images(
+                    complaint_id = comp_id,
+                    image_url = image_path
+                )
+                db.session.add(image)
+                db.session.commit()
+
+        except SQLAlchemyError as e:
+            return redirect(url_for('error'))
+        return data
 
     @app.route('/login',methods=['POST'])
     def login():
@@ -63,6 +125,7 @@ def add_routes(app, db):
                 
                 print(result)
                 if bcrypt.check_password_hash(result[0][3],password):
+                    session['user_id'] = result[0][0]
                     session['user_name'] = result[0][1]
                     session['email'] = result[0][2]
                     return redirect(url_for('home'))

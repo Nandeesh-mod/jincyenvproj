@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Store in hidden inputs
             latInput.value = latitude;
-            longInput.value = longitude;
+            longInput.value = longitude;  
             
             // Show success message
             locationStatus.textContent = `Location detected: ${latitude.toFixed(6)}, ${longitude.toFixed(6)}`;

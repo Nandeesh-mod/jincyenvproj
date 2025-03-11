@@ -21,6 +21,7 @@ def make_app():
     bcrypt.init_app(app)
 
     from routes import add_routes
+    
 
     add_routes(app, db)
 
