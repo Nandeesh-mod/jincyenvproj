@@ -48,6 +48,8 @@ class Complaints(db.Model):
 
     updated_at = db.Column(db.DateTime, default=datetime, onupdate=datetime)
 
+    status = db.Column(db.Integer, default=0)
+
 
 class Images(db.Model):
     __tablename__ = "images"

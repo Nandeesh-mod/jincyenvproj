@@ -26,6 +26,17 @@ def add_routes(app, db):
             return redirect(url_for('entry'))
     
 
+    @app.route('/complaints')
+    def complaints():
+        if session.get("email"):
+            query = text("SELECT * FROM complaints WHERE user_id=:user_id")
+            res  = db.session.execute(query, {"user_id": session['user_id']})
+            result = res.fetchall()
+            print(result)
+            return render_template('/home/complaint.htm', complaints=result)
+        else:
+            return redirect(url_for('entry'))
+
 
 
     @app.route('/error')
@@ -104,7 +115,7 @@ def add_routes(app, db):
 
         except SQLAlchemyError as e:
             return redirect(url_for('error'))
-        return data
+        return redirect(url_for('home'))
 
     @app.route('/login',methods=['POST'])
     def login():
