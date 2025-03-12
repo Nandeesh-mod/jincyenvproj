@@ -175,7 +175,7 @@
                         <th>Description</th>
                         <th>Location</th>
                         <th>Status</th>
-                        <th>Actions</th>
+                        <th>View Complaint</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -204,8 +204,7 @@
                         {%endif%}
 
                         <td>
-                            <button class="action-btn">View</button>
-                            <button class="action-btn">Track</button>
+                            <a href="{{url_for('view_complaint', complaint_id = item[0], user_id=item[1])}}"><button class="action-btn">Track</button></a>
                         </td>
                     </tr>
                     {%endfor%}

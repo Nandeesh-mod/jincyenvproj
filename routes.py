@@ -24,6 +24,16 @@ def add_routes(app, db):
             return render_template('/home/registercomp.htm')
         else:
             return redirect(url_for('entry'))
+        
+
+    @app.route('/view_complaint/<complaint_id>/<user_id>')
+    def view_complaint(complaint_id, user_id):
+        if session.get("email") and int(user_id) == int(session.get("user_id")):
+            print(user_id)
+            print(session.get("user_id"))
+            return render_template('/home/viewcomp.htm')
+        else:
+            return redirect(url_for('entry'))
     
 
     @app.route('/complaints')

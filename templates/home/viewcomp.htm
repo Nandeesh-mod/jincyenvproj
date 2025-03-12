@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaint #6 - Detail View</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .header {
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 {
+            color: #333;
+            margin: 0;
+            font-size: 24px;
+        }
+        .back-button {
+            background-color: #37c972;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .complaint-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .complaint-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+        .complaint-id {
+            font-size: 18px;
+            font-weight: bold;
+            color: #555;
+        }
+        .complaint-date {
+            color: #777;
+        }
+        .complaint-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .complaint-description {
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #444;
+        }
+        .complaint-status {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            background-color: #e6f7ff;
+            color: #1890ff;
+        }
+        .status-started {
+            background-color: #e6f7ff;
+            color: #1890ff;
+        }
+        .map-container {
+            height: 400px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .map-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .images-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .image-card {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .image-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .detail-label {
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        .coordinates {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .view-larger {
+            color: #37c972;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0 10px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Complaint Details</h1>
+        <button class="back-button" onclick="window.history.back()">Back to All Complaints</button>
+    </div>
+    <div class="container">
+        <div class="complaint-card">
+            <div class="complaint-header">
+                <div class="complaint-id">Complaint ID: 6</div>
+                <div class="complaint-date">Filed on: 2025-03-11 06:56:06</div>
+            </div>
+            
+            <div class="detail-label">Category</div>
+            <div class="complaint-title">Test Complaint</div>
+            
+            <div class="detail-label">Description</div>
+            <div class="complaint-description">Test complaint desc</div>
+            
+            <div class="detail-label">Status</div>
+            <div class="complaint-status status-started">Started</div>
+            
+            <div class="section-title">Location</div>
+            <div class="coordinates">12°57'54.4"N 77°..."</div>
+            <div class="map-container">
+                <img src="/api/placeholder/800/400" alt="Complaint location map">
+                <div style="text-align: right; margin-top: 5px;">
+                    <a href="#" class="view-larger">View larger map</a>
+                </div>
+            </div>
+            
+            <div class="section-title">Images</div>
+            <div class="images-container">
+                <div class="image-card">
+                    <img src="/api/placeholder/400/400" alt="Complaint image 1">
+                </div>
+                <div class="image-card">
+                    <img src="/api/placeholder/400/400" alt="Complaint image 2">
+                </div>
+                <div class="image-card">
+                    <img src="/api/placeholder/400/400" alt="Complaint image 3">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
