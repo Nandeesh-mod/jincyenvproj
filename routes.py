@@ -20,7 +20,8 @@ def add_routes(app, db):
         if not data and data["email"] and data["password"]:
             return redirect(url_for('error_page'))
         if data["email"] == "admin@gmail.com" and data["password"]=="password":
-            return render_template('admin/showcomplaints.htm')
+            session["admin"] = data["email"]
+            return redirect(url_for('showcomp'))
         else:
             return redirect(url_for('error_page'))
         # if not data:
@@ -32,8 +33,18 @@ def add_routes(app, db):
         # else:
         #     return redirect(url_for('error_page'))
 
+    @app.route('/showcomp')
+    def showcomp():
+        if session.get("admin"):
+            return render_template('admin/showcomplaints.htm')
+        
 
+    @app.route('/logout_admin')
+    def logout_admin():
+        session.clear()
+        return redirect(url_for('admin'))
 
+    
     @app.route('/test')
     def test():
         return render_template('/test.htm')
