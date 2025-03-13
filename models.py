@@ -15,6 +15,7 @@ class User(db.Model):
     address = db.Column(db.String(255), nullable=True)
     created_at = db.Column(db.DateTime, default=datetime)
     points = db.Column(db.Integer)
+    phoneno = db.Column(db.String(255))
 
 
 
