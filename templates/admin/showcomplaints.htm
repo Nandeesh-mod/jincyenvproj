@@ -4,11 +4,247 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="css/home.css">
+    <title>Waste Management Portal - User List</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+        }
+        
+        .header {
+            background-color: #2ecc71;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            font-weight: 500;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: opacity 0.3s;
+        }
+        
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .page-title {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+        
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .search-bar input {
+            flex-grow: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .search-bar button {
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .search-bar button:hover {
+            background-color: #27ae60;
+        }
+        
+        .user-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .user-table th, .user-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .user-table th {
+            background-color: #f9f9f9;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .user-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .user-table tr:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .status-active {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .status-inactive {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-buttons button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #2ecc71;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        
+        .action-buttons button:hover {
+            color: #27ae60;
+        }
+        
+        .delete-btn {
+            color: #e74c3c !important;
+        }
+        
+        .delete-btn:hover {
+            color: #c0392b !important;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 5px;
+        }
+        
+        .pagination button {
+            background-color: white;
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .pagination button.active {
+            background-color: #2ecc71;
+            color: white;
+            border-color: #2ecc71;
+        }
+        
+        .pagination button:hover:not(.active) {
+            background-color: #f5f5f5;
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .user-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .search-bar {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
-    {% include '/admin/admin_nav.htm' %}
+    <div class="header">
+        <h1>Waste Management Portal</h1>
+        <div class="nav-links">
+            <a href="#">View User</a>
+            <a href="#">View Complaints</a>
+            <a href="{{ url_for('logout_admin') }}">Logout</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h2 class="page-title">Registered Users</h2>
+        
+        <div class="search-bar">
+            <input type="text" placeholder="Search by username, email or phone number...">
+            <button>Search</button>
+        </div>
+        
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Complaints Filed</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user_data in  user%}
+                <tr>
+                    <td>{{user_data[0]}}</td>
+                    <td>{{user_data[1]}}</td>
+                    <td>{{user_data[6]}}</td>
+                    <td>{{user_data[7]}}</td>
+                    <td class="action-buttons">
+                        <a href="{{url_for('user_complaints',user_id = user_data[8])}}"><button>View</button></a>  
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
 {% endif %}

@@ -36,13 +36,25 @@ def add_routes(app, db):
     @app.route('/showcomp')
     def showcomp():
         if session.get("admin"):
-            return render_template('admin/showcomplaints.htm')
+            getuser = text("select u.username, u.email, u.created_at, u.points, u.firstname, u.address, u.phoneno, COUNT(c.id), u.id from user as u join complaints as c on u.id=c.user_id GROUP BY u.email;")
+            res = db.session.execute(getuser)
+            user_res = res.fetchall()
+            print(user_res)
+            return render_template('admin/showcomplaints.htm', user = user_res)
         
 
     @app.route('/logout_admin')
     def logout_admin():
         session.clear()
         return redirect(url_for('admin'))
+    
+
+    @app.route('/user_complaints/<user_id>', methods=['GET'])
+    def user_complaints(user_id):
+        if session.get("admin"):
+            print(user_id)
+            return render_template('admin/usercomp.htm', user_id = user_id)
+
 
     
     @app.route('/test')
