@@ -57,6 +57,7 @@ def add_routes(app, db):
             image_res = res.fetchall()
 
             print(image_res)
+            session["user_id"] = user_id
             return render_template('admin/admin_view_comp.htm',complaint=complaint_res, images=image_res)
             
 
@@ -85,6 +86,22 @@ def add_routes(app, db):
         res = db.session.execute(query, {"comp_id" : comp_id})
         db.session.commit()
         print(request.url)
+
+
+        # getting the user id 
+        user_id = session.get("user_id")
+        query = text("select points from user where id=:user_id")
+        res = db.session.execute(query, {"user_id" : user_id})
+        db.session.commit()
+        # print("**********************")
+        # print(res.fetchall())
+        points = res.fetchall()[0][0]
+        points = points + 100
+
+        query = text("update user set points=:points where id=:user_id")
+        res = db.session.execute(query,{"points": points ,"user_id" : user_id})
+        db.session.commit()
+
         # redirect to same page as in 
         return redirect(url_for('user_complaints', user_id=session.get("user_id")))
     
