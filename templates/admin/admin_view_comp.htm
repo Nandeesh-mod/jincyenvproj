@@ -332,6 +332,9 @@
             {% endfor %}
             
             <div class="section-title">Actions</div>
+            <div class="action-buttons">
+               <a href="{{ url_for('resolve_status', comp_id=complaint[0][10]) }}"><button class="action-button resolve-button">Mark as Resolved</button></a>
+            </div>
         </div>
     </div>
 </body>

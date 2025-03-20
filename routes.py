@@ -33,6 +33,34 @@ def add_routes(app, db):
         # else:
         #     return redirect(url_for('error_page'))
 
+
+    @app.route('/admincomplaints')
+    def admincomplaints():
+        if session.get("admin"):      
+            query = text("SELECT * FROM complaints;")
+            res  = db.session.execute(query)
+            result = res.fetchall()
+            print(result)
+            return render_template('admin/adminviewcomp.htm',complaints=result)
+        
+    
+    @app.route('/admin_view_complaint/<complaint_id>/<user_id>')
+    def admin_view_complaint(complaint_id, user_id):
+        if session.get("admin"):
+            getcomp_det = text("select * from user join complaints where user.id= complaints.user_id and complaints.id=:complaint_id;")
+            res = db.session.execute(getcomp_det, {"complaint_id" : complaint_id})
+            complaint_res = res.fetchall()
+            print(complaint_res)
+
+            getimage_det = text("select * from images where complaint_id=:complaint_id")
+            res = db.session.execute(getimage_det, {"complaint_id" : complaint_id})
+            image_res = res.fetchall()
+
+            print(image_res)
+            return render_template('admin/admin_view_comp.htm',complaint=complaint_res, images=image_res)
+            
+
+    
     @app.route('/showcomp')
     def showcomp():
         if session.get("admin"):
@@ -41,6 +69,8 @@ def add_routes(app, db):
             user_res = res.fetchall()
             print(user_res)
             return render_template('admin/showcomplaints.htm', user = user_res)
+        else:
+            return redirect(url_for('error_page'))
         
 
     @app.route('/logout_admin')
@@ -49,11 +79,38 @@ def add_routes(app, db):
         return redirect(url_for('admin'))
     
 
+    @app.route('/resolve_status/<comp_id>', methods=['GET'])        
+    def resolve_status(comp_id):
+        query = text("update complaints set status=2 where id=:comp_id")
+        res = db.session.execute(query, {"comp_id" : comp_id})
+        db.session.commit()
+        print(request.url)
+        # redirect to same page as in 
+        return redirect(url_for('user_complaints', user_id=session.get("user_id")))
+    
+    @app.route('/inprogress_status/<comp_id>', methods=['GET'])        
+    def inprogress_status(comp_id):
+        query = text("update complaints set status=1 where id=:comp_id")
+        res = db.session.execute(query, {"comp_id" : comp_id})
+        db.session.commit()
+        print(request.url)
+        # redirect to same page as in 
+        return redirect(url_for('user_complaints', user_id=session.get("user_id")))
+
+    
+
     @app.route('/user_complaints/<user_id>', methods=['GET'])
     def user_complaints(user_id):
         if session.get("admin"):
             print(user_id)
-            return render_template('admin/usercomp.htm', user_id = user_id)
+            getuser = text("select * from complaints where user_id=:user_id;")
+            res = db.session.execute(getuser,  {"user_id" : user_id})
+            user_res = res.fetchall()
+            print(user_res)
+            session['user_id'] = user_id
+            return render_template('admin/usercomp.htm', user_res=user_res)
+        else:
+            return redirect(url_for('error_page'))
 
 
     
